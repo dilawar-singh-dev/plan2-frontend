@@ -33,7 +33,7 @@ window.axios = require('axios');
 window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest'
 Vue.prototype.$http = window.axios
 const axios = require('axios');
-axios.defaults.baseURL = 'http://localhost:3333/';
+axios.defaults.baseURL = 'https://plan2-api.herokuapp.com/';
 axios.defaults.headers.common['Access-Control-Allow-Origin'] = '*';
 
 Vue.config.productionTip = false
