@@ -13,25 +13,40 @@
                     <div class="text-center text-muted mb-4">
                         <h4>Login</h4>
                     </div>
-                    <form role="form" @submit.prevent="authLogin()">
-                      
-                        <base-input class="input-group-alternative mb-3"
-                                    placeholder="Email"
-                                    addon-left-icon="ni ni-email-83"
-                                    v-model="model.email">
-                        </base-input>
+                     <v-form
+                        ref="form"
+                        v-model="valid"
+                        lazy-validation
+                        @submit.prevent="validate()"
+                    >
 
-                        <base-input class="input-group-alternative"
-                                    placeholder="Password"
-                                    type="password"
-                                    addon-left-icon="ni ni-lock-circle-open"
-                                    v-model="model.password">
-                        </base-input>
+                          <v-text-field
+                            class="mb-0"
+                            v-model="model.email"
+                            :rules="emailRules"
+                            label="E-mail"
+                            prepend-inner-icon="ni ni-email-83"
+                            solo
+                        ></v-text-field>
+
+                        <v-text-field
+                            class="mb-0"
+                            v-model="model.password"
+                            :value="model.password"
+                            :rules="passwordRules"
+                            @click:append="() => (value = !value)"
+                            @input="_=>model.password=_"
+                            :type="value ? 'password' : 'text'"
+                            prepend-inner-icon="ni ni-lock-circle-open"
+                            :append-icon="value ? 'mdi-eye' : 'mdi-eye-off'"
+                            label="Password"
+                            solo
+                        ></v-text-field>
 
                         <div class="text-center">
                             <vue-button-spinner
                                 :is-loading="isLoading" 
-                                :disabled="isLoading"
+                                :disabled="!valid"
                                 :status="status"
                                 class="btn my-4 btn-primary px-4 py-2 h-auto"
                                 type="submit"
@@ -39,7 +54,7 @@
                                 <span>Login</span>
                             </vue-button-spinner>
                         </div>
-                    </form>
+                   </v-form>
                 </div>
             </div>
                <div class="row mt-3">
@@ -63,10 +78,21 @@
         name: 'login',
         data() {
             return {
+                valid: true,
                 model: {
                     email: '',
                     password: ''
                 },
+                value: true,
+                emailRules: [
+                    v => !!v || 'E-mail is required',
+                    v => /.+@.+/.test(v) || 'E-mail must be valid',
+                ],
+                passwordRules: [
+                    v => !!v || 'Password is required',
+                    v => /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#\$%\^&\*])(?=.{8,})/.test(v) || 
+                    'Min. 8 characters with at least one capital letter, a number and a special character.',
+                ],
                 isLoading: false,
 				status: '',
             }
@@ -75,7 +101,6 @@
             VueButtonSpinner
         },
         methods: {
-
             checkLogin(){
               var authToken = localStorage.getItem("authToken");
               if(authToken){
@@ -84,8 +109,13 @@
                 });
               }
             },
+             validate () {
+                this.$refs.form.validate();
+                if(this.$refs.form.validate()){
+                    this.authLogin();
+                }
+            },
             authLogin() {
-
                 this.$nprogress.start();
                 // BTN  
                 this.isLoading = true; 

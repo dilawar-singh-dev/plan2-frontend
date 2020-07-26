@@ -14,31 +14,49 @@
                     <div class="text-center text-muted mb-4">
                         <h4>Register</h4>
                     </div>
-                    <form role="form" @submit.prevent="register()">
+                     <v-form
+                        ref="form"
+                        v-model="valid"
+                        lazy-validation
+                        @submit.prevent="validate()"
+                    >
+                         <v-text-field
+                            v-model="model.name"
+                            :counter="20"
+                            :rules="nameRules"
+                            label="Name"
+                            prepend-inner-icon="ni ni-hat-3"
+                            required
+                            solo
+                        ></v-text-field>
 
-                         <base-input class="input-group-alternative mb-3"
-                                    placeholder="Name"
-                                    addon-left-icon="ni ni-hat-3"
-                                    v-model="model.name">
-                        </base-input>
+                         <v-text-field
+                            class="mb-0"
+                            v-model="model.email"
+                            :rules="emailRules"
+                            label="E-mail"
+                            prepend-inner-icon="ni ni-email-83"
+                            solo
+                        ></v-text-field>
 
-                        <base-input class="input-group-alternative mb-3"
-                                    placeholder="Email"
-                                    addon-left-icon="ni ni-email-83"
-                                    v-model="model.email">
-                        </base-input>
-
-                        <base-input class="input-group-alternative"
-                                    placeholder="Password"
-                                    type="password"
-                                    addon-left-icon="ni ni-lock-circle-open"
-                                    v-model="model.password">
-                        </base-input>
+                        <v-text-field
+                            class="mb-0"
+                            v-model="model.password"
+                            :value="model.password"
+                            :rules="passwordRules"
+                            @click:append="() => (value = !value)"
+                            @input="_=>model.password=_"
+                            :type="value ? 'password' : 'text'"
+                            prepend-inner-icon="ni ni-lock-circle-open"
+                            :append-icon="value ? 'mdi-eye' : 'mdi-eye-off'"
+                            label="Password"
+                            solo
+                        ></v-text-field>
 
                         <div class="text-center">
                             <vue-button-spinner
                                 :is-loading="isLoading" 
-                                :disabled="isLoading"
+                                :disabled="!valid"
                                 :status="status"
                                 class="btn my-4 btn-primary px-4 py-2 h-auto"
                                 type="submit"
@@ -46,7 +64,7 @@
                                 <span>Create account</span>
                             </vue-button-spinner>
                         </div>
-                    </form>
+                  </v-form>
                 </div>
             </div>
              <div class="row mt-3">
@@ -70,11 +88,26 @@
         name: 'login',
         data() {
             return {
+                 valid: true,
                 model: {
                     name: '',
                     email: '',
                     password: ''
                 },
+                value: true,
+                nameRules: [
+                    v => !!v || 'Name is required',
+                    v => (v && v.length <= 20) || 'Name must be less than 20 characters',
+                ],
+                emailRules: [
+                    v => !!v || 'E-mail is required',
+                    v => /.+@.+/.test(v) || 'E-mail must be valid',
+                ],
+                passwordRules: [
+                    v => !!v || 'Password is required',
+                    v => /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#\$%\^&\*])(?=.{8,})/.test(v) || 
+                    'Min. 8 characters with at least one capital letter, a number and a special character.',
+                ],
                 isLoading: false,
 				status: '',
             }
@@ -83,8 +116,13 @@
             VueButtonSpinner
         },
         methods: {
+             validate () {
+                this.$refs.form.validate();
+                if(this.$refs.form.validate()){
+                    this.register();
+                }
+            },
             register() {
-
                 this.$nprogress.start();
                 // BTN  
                 this.isLoading = true;
