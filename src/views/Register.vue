@@ -27,6 +27,8 @@
                             label="Name"
                             prepend-inner-icon="ni ni-hat-3"
                             required
+                            aria-autocomplete="off"
+                            autocomplete="off"
                             solo
                         ></v-text-field>
 
@@ -36,6 +38,8 @@
                             :rules="emailRules"
                             label="E-mail"
                             prepend-inner-icon="ni ni-email-83"
+                            aria-autocomplete="off"
+                            autocomplete="off"
                             solo
                         ></v-text-field>
 

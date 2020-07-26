@@ -26,6 +26,8 @@
                             :rules="emailRules"
                             label="E-mail"
                             prepend-inner-icon="ni ni-email-83"
+                            aria-autocomplete="off"
+                            autocomplete="off"
                             solo
                         ></v-text-field>
 
@@ -40,6 +42,8 @@
                             prepend-inner-icon="ni ni-lock-circle-open"
                             :append-icon="value ? 'mdi-eye' : 'mdi-eye-off'"
                             label="Password"
+                            aria-autocomplete="off"
+                            autocomplete="off"
                             solo
                         ></v-text-field>
 
