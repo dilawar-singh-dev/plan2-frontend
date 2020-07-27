@@ -40,6 +40,7 @@
                             prepend-inner-icon="ni ni-email-83"
                             aria-autocomplete="off"
                             autocomplete="off"
+                            type="email"
                             solo
                         ></v-text-field>
 
