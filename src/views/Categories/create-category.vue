@@ -20,30 +20,45 @@
                     <hr class="mt-0 mb-0" />
 
                     <div class="col-xl-12">
-                       <form @submit.prevent="createCategory()">
+                    <v-form
+                        ref="form"
+                        v-model="valid"
+                        lazy-validation
+                        @submit.prevent="validate()"
+                    >
 
 
-                        <base-input alternative
-                        v-model="category.name"
-                        label="Name"
-                         input-classes="form-control-alternative "
-                                    class="col-md-6 mb-0"
-                                    placeholder="Name">
-                        </base-input>
-                         <base-input alternative
-                         label="Remark"
-                         v-model="category.remark"
-                          input-classes="form-control-alternative "
-                                    class="col-md-6 mb-0 mt-0"
-                                    placeholder="Remark">
-                        </base-input>
+                        <v-text-field
+                            v-model="category.name"
+                            :counter="20"
+                            :rules="nameRules"
+                            label="Name"
+                            required
+                            class="col-md-6 mb-0 mt-0"
+                            aria-autocomplete="off"
+                            autocomplete="off"
+                            solo
+                        ></v-text-field>
+
+                        <v-text-field
+                            v-model="category.remark"
+                            :counter="20"
+                            :rules="nameRules"
+                            label="Remark"
+                            required
+                            class="col-md-6 mb-0 mt-0"
+                            aria-autocomplete="off"
+                            autocomplete="off"
+                            solo
+                        ></v-text-field>
+
                         <div class="col-md-12 text-left">
-                             <vue-button-spinner :is-loading="isLoading" :disabled="isLoading" :status="status"
+                             <vue-button-spinner :is-loading="isLoading" :disabled="!valid" :status="status"
                                     class="btn btn-primary px-2 py-1 h-auto btn-sm" type="submit">
                                     <span>Create Category</span>
                              </vue-button-spinner>
                         </div>
-                    </form>
+                     </v-form>
                     </div>
 
                 </div>
@@ -78,10 +93,22 @@
                 category: {
                     name: '',
                     remark: ''
-                }
+                },
+                valid: true,
+                value: true,
+                nameRules: [
+                    v => !!v || 'Value is required',
+                    v => (v && v.length <= 20) || 'Value must be less than 20 characters',
+                ]
             }
         },
         methods: {
+             validate () {
+                this.$refs.form.validate();
+                if(this.$refs.form.validate()){
+                    this.createCategory();
+                }
+            },
             createCategory(){
                  // BTN  
                 this.isLoading = true;

@@ -20,7 +20,13 @@
                     <hr class="mt-0" />
 
                     <div class="col-xl-12">
-                        <form @submit.prevent="createTask()">
+                         <v-form
+                        ref="form"
+                        v-model="valid"
+                        lazy-validation
+                        @submit.prevent="validate()"
+                    >
+
                             <div class="">
                                 <div class="row">
                                     <div class="col-lg-12 mb-3">
@@ -59,14 +65,17 @@
                                                 <div class="col-md-12 d-flex flex-row">
                                                      <v-select
                                                         :items="categories"
-                                                        label="Choose"
+                                                        label="Select Category"
                                                         item-text='name'
                                                         item-value='id'
                                                         v-model="taskse.category"
-                                                        solo
+                                                        :rules="[(v) => !!v || 'Category is required']"
+                                                         required
+                                                         solo
                                                         ></v-select>
                                                 </div>
-                                                <div class="row w-100">
+
+                                                <div v-if="categories.length > 0" class="row w-100">
                                                     <div class="col-12 col-md-11 offset-md-1 p-4 pt-0">
                                                         <h6 class="col-12 heading-small text-muted mb-0 py-0">Task</h6>
                                                         <div class="tasks-list-row p-3 m-3 position-relative" v-for="(liste,listKey) in taskse.list"
@@ -80,16 +89,30 @@
 
                                                             <div class="row mx-0">
                                                                 <div class="col-md-12 d-flex mb-0 pb-0">
-                                                                    <base-input alternative="" label="Name"
-                                                                        placeholder="Name"
-                                                                        input-classes="form-control-alternative "
-                                                                        v-model="liste.name" />
+                                                                     <v-text-field
+                                                                        v-model="liste.name"
+                                                                        :counter="40"
+                                                                        :rules="taskNameRules"
+                                                                        label="Name"
+                                                                        required
+                                                                        class="mb-0 mt-0"
+                                                                        aria-autocomplete="off"
+                                                                        autocomplete="off"
+                                                                        solo
+                                                                    ></v-text-field>
                                                                 </div>
                                                                 <div class="col-md-12 d-flex mt-0 py-0">
-                                                                    <base-input alternative="" label="Remark"
-                                                                        placeholder="Remark"
-                                                                        input-classes="form-control-alternative"
-                                                                        v-model="liste.remark" />
+                                                                     <v-text-field
+                                                                        v-model="liste.remark"
+                                                                        :counter="20"
+                                                                        :rules="nameRules"
+                                                                        label="Remark"
+                                                                        required
+                                                                        class="mb-0 mt-0"
+                                                                        aria-autocomplete="off"
+                                                                        autocomplete="off"
+                                                                        solo
+                                                                    ></v-text-field>
                                                                 </div>
                                                                 <div class="col-md-12 mt-0 pt-0 pb-0">
 
@@ -120,6 +143,11 @@
                                                         </div>
                                                     </div>
                                                 </div>
+                                                 <div v-else>
+                                                     <div class="col-12 py-0">
+                                                        <p style="font-size:14px">Category not found!</p>
+                                                     </div>
+                                                </div>
                                             </div>
                                         </div>
                                         <!-- CUISNE END  -->
@@ -133,12 +161,12 @@
                                 </div>
                             </div>
                             <div class="text-left">
-                                <vue-button-spinner :is-loading="isLoading" :disabled="isLoading" :status="status"
+                                <vue-button-spinner :is-loading="isLoading" :disabled="!valid" :status="status"
                                     class="btn my-4 btn-primary px-4 py-2 h-auto" type="submit">
                                     <span>Create Task</span>
                                 </vue-button-spinner>
                             </div>
-                        </form>
+                      </v-form>
                     </div>
 
                 </div>
@@ -154,24 +182,44 @@
                   body-classes="px-lg-5 py-lg-5"
                   class="border-0">
                 <template>
-                    <form @submit.prevent="createCategory()">
-                        <base-input alternative
+                      <v-form
+                        ref="form2"
+                        v-model="validModal"
+                        lazy-validation
+                        @submit.prevent="validateCreateCategory()"
+                    >
+
+                     <v-text-field
                         v-model="category.name"
-                                    class="mb-3 mt-3"
-                                    placeholder="Name">
-                        </base-input>
-                         <base-input alternative
-                         v-model="category.remark"
-                                    class="mb-3 mt-3"
-                                    placeholder="Remark">
-                        </base-input>
-                        <div class="text-center">
-                             <vue-button-spinner :is-loading="isLoading" :disabled="isLoading" :status="status"
-                                    class="btn my-4 btn-primary px-2 py-1 h-auto btn-sm" type="submit">
-                                    <span>Create Category</span>
-                             </vue-button-spinner>
-                        </div>
-                    </form>
+                        :counter="20"
+                        :rules="nameRules"
+                        label="Name"
+                        required
+                        class="mb-0 mt-0"
+                        aria-autocomplete="off"
+                        autocomplete="off"
+                        solo
+                    ></v-text-field>
+
+                     <v-text-field
+                        v-model="category.remark"
+                        :counter="20"
+                        :rules="nameRules"
+                        label="Remark"
+                        required
+                        class="mb-0 mt-0"
+                        aria-autocomplete="off"
+                        autocomplete="off"
+                        solo
+                    ></v-text-field>
+
+                    <div class="text-center">
+                            <vue-button-spinner :is-loading="isLoading" :disabled="!validModal" :status="status"
+                                class="btn my-4 btn-primary px-2 py-1 h-auto btn-sm" type="submit">
+                                <span>Create Category</span>
+                            </vue-button-spinner>
+                    </div>
+                    </v-form>
                 </template>
             </card>
         </modal>
@@ -206,7 +254,7 @@
                 data: {
                     date: fecha.format(new Date(), 'dddd MMMM Do, YYYY'),
                     tasks: [{
-                        category: '',
+                        category: null,
                         list: [{
                             name: '',
                             remark: '',
@@ -221,11 +269,37 @@
                 category: {
                     name: '',
                     remark: ''
-                }
+                },
+                valid: true,
+                value: true,
+                validModal: true,
+                valueModal: true,
+                nameRules: [
+                    v => !!v || 'Value is required',
+                    v => (v && v.length <= 20) || 'Value must be less than 20 characters',
+                ],
+                taskNameRules: [
+                    v => !!v || 'Value is required',
+                    v => (v && v.length <= 40) || 'Value must be less than 40 characters',
+                ],
+                categoryRules:[
+                    v => !!v || 'Category is required'
+                ],
             }
         },
         methods: {
-
+            validate () {
+                this.$refs.form.validate();
+                if(this.$refs.form.validate()){
+                    this.createTask();
+                }
+            },
+            validateCreateCategory(){
+                 this.$refs.form2.validate();
+                if(this.$refs.form2.validate()){
+                    this.createCategory();
+                }
+            },
             parseDate(dateString, format) {
             return fecha.parse(dateString, format);
             },

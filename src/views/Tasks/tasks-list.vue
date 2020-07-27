@@ -59,7 +59,7 @@
                                         }" />
                                 </td>
 
-                                <td class="text-left">
+                                <td class="text-left" @click="deleteTask(row.id)">
                                     <i class="fa fa-trash text-danger ml-3"></i>
                                 </td>
 
@@ -170,6 +170,61 @@
                         this.isLoading = false
                     });
             },
+            deleteTask(id) {
+                // MODAL BOX
+                console.log(id)
+                this.$confirm({
+                    message: "Sure to delete!",
+                    button: {
+                        no: 'Close',
+                        yes: 'Delete'
+                    },
+                    /**
+                     * Callback Function
+                     * @param {Boolean} confirm 
+                     */
+                    callback: confirm => {
+                        if (confirm) {
+                            this.$nprogress.start();
+                            this.$nprogress.inc(0.3);
+                            var token = localStorage.getItem('authToken');
+                            axios.delete('task/delete/' + id, {
+                                    headers: {
+                                        Authorization: 'Bearer ' + token
+                                    }
+                                }).then(
+                                    response => {
+                                        this.getTasks();
+                                        this.$nprogress.done();
+                                        console.log('done')
+                                    })
+                                .catch(e => {
+                                    // MODAL BOX
+                                    this.$confirm({
+                                        message: e.response.data.error.message,
+                                        button: {
+                                            no: 'Close',
+                                            // yes: 'Yes'
+                                        },
+                                        /**
+                                         * Callback Function
+                                         * @param {Boolean} confirm 
+                                         */
+                                        callback: confirm => {
+                                            if (confirm) {
+                                                // ... do something
+                                            }
+                                        }
+                                    })
+                                    console.log('Not done')
+                                    // MODAL BOX 
+                                    this.$nprogress.done();
+                                });
+                        }
+                    }
+                })
+                // MODAL BOX 
+            }
         },
         mounted() {
             // Fetch initial results

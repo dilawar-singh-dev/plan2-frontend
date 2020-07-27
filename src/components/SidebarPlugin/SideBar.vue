@@ -54,7 +54,7 @@
                     <div class="row">
                         <div class="col-6 collapse-brand">
                             <router-link to="/">
-                                <img :src="logo">
+                                <p>PLAN 2</p>
                             </router-link>
                         </div>
                         <div class="col-6 collapse-close">
