@@ -1,10 +1,10 @@
 self.__precacheManifest = [
   {
-    "revision": "f0931e2a5a43ee0d9033",
-    "url": "/css/app.3f958462.css"
+    "revision": "3cf2f31c462990697aa8",
+    "url": "/css/app.309c1b34.css"
   },
   {
-    "revision": "f0931e2a5a43ee0d9033",
+    "revision": "3cf2f31c462990697aa8",
     "url": "/js/app.f44ec6ba.js"
   },
   {
@@ -28,6 +28,10 @@ self.__precacheManifest = [
     "url": "/fonts/nucleo-icons.c1733565.eot"
   },
   {
+    "revision": "f82ec6ba2dc4181db2af35c499462840",
+    "url": "/fonts/nucleo-icons.f82ec6ba.ttf"
+  },
+  {
     "revision": "426439788ec5ba772cdf94057f6f4659",
     "url": "/fonts/nucleo-icons.42643978.woff2"
   },
@@ -36,20 +40,16 @@ self.__precacheManifest = [
     "url": "/fonts/nucleo-icons.2569aaea.woff"
   },
   {
-    "revision": "f82ec6ba2dc4181db2af35c499462840",
-    "url": "/fonts/nucleo-icons.f82ec6ba.ttf"
-  },
-  {
     "revision": "0b8a30b10cbe7708d5f3a4b007c1d665",
     "url": "/img/nucleo-icons.0b8a30b1.svg"
   },
   {
-    "revision": "dc85ceeb0daba687e36d8dde4ed4d352",
-    "url": "/fonts/materialdesignicons-webfont.dc85ceeb.woff2"
-  },
-  {
     "revision": "c32505e8c654310ece1da4e1c10eeb57",
     "url": "/fonts/materialdesignicons-webfont.c32505e8.woff"
+  },
+  {
+    "revision": "dc85ceeb0daba687e36d8dde4ed4d352",
+    "url": "/fonts/materialdesignicons-webfont.dc85ceeb.woff2"
   },
   {
     "revision": "8a67040660444e8d8ee82a406d580d8f",
@@ -60,7 +60,7 @@ self.__precacheManifest = [
     "url": "/fonts/materialdesignicons-webfont.6a2ddad1.ttf"
   },
   {
-    "revision": "a2a21936376824aa3b19c9f3187ddd95",
+    "revision": "eb9dace9802514e1e7911ab4f6f47660",
     "url": "/index.html"
   },
   {
@@ -68,24 +68,24 @@ self.__precacheManifest = [
     "url": "/img/brand/green.png"
   },
   {
-    "revision": "a794a15f6e45b941d8a521e7965221a8",
-    "url": "/img/brand/favicon.png"
-  },
-  {
     "revision": "e0ea3f1916671872498288dc2bd40f06",
     "url": "/img/brand/white.png"
+  },
+  {
+    "revision": "a794a15f6e45b941d8a521e7965221a8",
+    "url": "/img/brand/favicon.png"
   },
   {
     "revision": "1f533d2fdc40493ee834dd8e4288220c",
     "url": "/img/theme/angular.jpg"
   },
   {
-    "revision": "50dd5fdc839dfc16739b15370650485c",
-    "url": "/img/theme/react.jpg"
-  },
-  {
     "revision": "d136a071cf09ba5ab8dc2ada1ab04015",
     "url": "/img/theme/bootstrap.jpg"
+  },
+  {
+    "revision": "50dd5fdc839dfc16739b15370650485c",
+    "url": "/img/theme/react.jpg"
   },
   {
     "revision": "3b8c576082e5ca27bae21a839f1290f6",
@@ -108,12 +108,12 @@ self.__precacheManifest = [
     "url": "/robots.txt"
   },
   {
-    "revision": "66618a418175ddf2ac8c47a241d327a8",
-    "url": "/img/theme/team-4-800x800.jpg"
-  },
-  {
     "revision": "c532f6f0176968caa6265864ee1abb35",
     "url": "/img/theme/vue.jpg"
+  },
+  {
+    "revision": "66618a418175ddf2ac8c47a241d327a8",
+    "url": "/img/theme/team-4-800x800.jpg"
   },
   {
     "revision": "cee60cfd101f9b3d2aae0e819ec8b267",
