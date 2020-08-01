@@ -10,7 +10,7 @@
                                     Tasks 
                                 </h3>
                                 <div class="row">
-                                    <div class="col-lg-6 mx-auto py-0 d-flex flex-column">
+                                    <div class="col-lg-6 mx-auto py-0 d-flex flex-column justify-content-end justify-content-md-center ">
                                     <date-pick   
                                         :format="format"
                                         :parseDate="parseDate"
@@ -18,6 +18,7 @@
                                         :selectableYearRange="{from: 2020, to: 2021}"
                                         :inputAttributes="{readonly: true}"
                                         v-model="todayDate"
+                                        class="ml-auto ml-md-auto mr-md-auto text-right text-md-center"
                                         >
                                         <template v-slot:default="{toggle, inputValue}">
                                             <button class="btn text-white btn-success btn-sm" @click="toggle">
@@ -28,10 +29,10 @@
                                     </div>
                             </div>
                             </div>
-                            <div class="col-lg-4 text-right">
-                                <base-button type="success" class="text-white" @click="viewAllTasks()" size="sm">{{ viewBtnText }}</base-button>
+                            <div class="col-lg-4 text-md-right d-flex justify-content-md-between">
+                                <base-button type="success" class="text-white mr-auto mr-md-0" @click="viewAllTasks()" size="sm">{{ viewBtnText }}</base-button>
                                 <router-link :to="{ name: 'create-task'}">
-                                    <base-button type="primary" size="sm">Create</base-button>
+                                    <base-button type="primary" class="ml-auto" size="sm">Create</base-button>
                                 </router-link> 
                             </div>
                         </div>
