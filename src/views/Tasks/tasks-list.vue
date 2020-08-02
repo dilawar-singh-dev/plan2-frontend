@@ -7,33 +7,30 @@
                         <div class="row align-items-center">
                             <div class="col-lg-8 d-flex justify-content-between">
                                 <h3 class="mb-0 d-flex align-items-center" :class="type === 'dark' ? 'text-white': ''">
-                                    Tasks 
+                                    Tasks
                                 </h3>
                                 <div class="row">
-                                    <div class="col-lg-6 mx-auto py-0 d-flex flex-column justify-content-end justify-content-md-center ">
-                                    <date-pick   
-                                        :format="format"
-                                        :parseDate="parseDate"
-                                        :formatDate="formatDate"
-                                        :selectableYearRange="{from: 2020, to: 2021}"
-                                        :inputAttributes="{readonly: true}"
-                                        v-model="todayDate"
-                                        class="ml-auto ml-md-auto mr-md-auto text-right text-md-center"
-                                        >
-                                        <template v-slot:default="{toggle, inputValue}">
-                                            <button class="btn text-white btn-success btn-sm" @click="toggle">
-                                                {{ inputValue || 'Select Date' }}
-                                            </button>
-                                        </template> 
-                                    </date-pick>
+                                    <div
+                                        class="col-lg-6 mx-auto py-0 d-flex flex-column justify-content-end justify-content-md-center ">
+                                        <date-pick :format="format" :parseDate="parseDate" :formatDate="formatDate"
+                                            :selectableYearRange="{from: 2020, to: 2021}"
+                                            :inputAttributes="{readonly: true}" v-model="todayDate"
+                                            class="ml-auto ml-md-auto mr-md-auto text-right text-md-center">
+                                            <template v-slot:default="{toggle, inputValue}">
+                                                <button class="btn text-white btn-success btn-sm" @click="toggle">
+                                                    {{ inputValue || 'Select Date' }}
+                                                </button>
+                                            </template>
+                                        </date-pick>
                                     </div>
-                            </div>
+                                </div>
                             </div>
                             <div class="col-lg-4 text-md-right d-flex justify-content-md-between">
-                                <base-button type="success" class="text-white mr-auto mr-md-0" @click="viewAllTasks()" size="sm">{{ viewBtnText }}</base-button>
+                                <base-button type="success" class="text-white mr-auto mr-md-0" @click="viewAllTasks()"
+                                    size="sm">{{ viewBtnText }}</base-button>
                                 <router-link :to="{ name: 'create-task'}">
                                     <base-button type="primary" class="ml-auto" size="sm">Create</base-button>
-                                </router-link> 
+                                </router-link>
                             </div>
                         </div>
                     </div>
@@ -75,25 +72,16 @@
                                 </td>
 
                                 <td class="budget">
-                                    <!-- <toggle-button @change="statusChange(row.id,row.done)" :value="row.done" :labels="{
-                                         checked: 'Done',
-                                         unchecked: 'Pending'
-                                        }" :width="70" :switch-color="{
-                                         checked: 'rgba(147, 231, 195, 0.8)',
-                                          unchecked: 'rgba(254, 201, 189, 0.8)'
-                                        }" :color="{
-                                         checked: '#1aae6f',
-                                         unchecked: '#ff3709'
-                                        }" /> -->
+                                    
+                                        <span v-if="row.done == true">
+                                         <base-button @click="statusChange(row.id,row.done)" type="success"
+                                        class="text-white mr-auto mr-md-0" size="sm">Done</base-button>
+                                        </span>
+                                         <span v-else>
+                                         <base-button @click="statusChange(row.id,row.done)" type="danger"
+                                        class="text-white mr-auto mr-md-0" size="sm">Pending</base-button>
+                                        </span>
 
-                                        <vs-switch  color="rgb(59,222,200)" @change="statusChange(row.id,row.done)" :value="row.done">
-                                            <template color="rgb(59,222,200)" #off>
-                                                Pending
-                                            </template>
-                                            <template color="rgba(254, 201, 189, 0.8)" #on>
-                                                Done
-                                            </template>
-                                        </vs-switch>
                                 </td>
 
                                 <td class="text-left" @click="deleteTask(row.id)">
@@ -132,12 +120,13 @@
                 date: fecha.format(new Date(), 'dddd MMMM Do, YYYY'),
                 todayDate: fecha.format(new Date(), 'dddd MMMM Do, YYYY'),
                 tasks: [],
-                viewBtnText: "View All Tasks"
+                viewBtnText: "View All Tasks",
+                toggleSwitch: false
             }
         },
         methods: {
             getTasks() {
-                
+
                 this.$nprogress.start();
                 this.$nprogress.inc(0.3);
                 var token = localStorage.getItem('authToken');
@@ -146,8 +135,8 @@
                         headers: {
                             Authorization: 'Bearer ' + token
                         },
-                        params:{
-                             date: this.todayDate
+                        params: {
+                            date: this.todayDate
                         }
                     }).then(
                         response => {
@@ -177,11 +166,11 @@
                         this.$nprogress.done();
                     });
             },
-            statusChange(id,value) {
+            statusChange(id, value) {
 
                 var done = true;
-                if(value == true){
-                  done = false;
+                if (value == true) {
+                    done = false;
                 }
                 this.$nprogress.start();
                 this.$nprogress.inc(0.3);
@@ -196,7 +185,8 @@
                         }
                     }).then(
                         response => {
-                            this.$nprogress.done(); 
+                            this.getTasks();
+                            this.$nprogress.done();
                         })
                     .catch(e => {
                         // MODAL BOX
@@ -221,27 +211,26 @@
                         this.isLoading = false
                     });
             },
-            dateSelect(){
-               console.log('dara');
+            dateSelect() {
+                console.log('dara');
             },
-             parseDate(dateString, format) {
-            return fecha.parse(dateString, format);
-            console.log('dara2');
+            parseDate(dateString, format) {
+                return fecha.parse(dateString, format);
+                console.log('dara2');
             },
             formatDate(dateObj, format) {
                 return fecha.format(dateObj, format);
                 console.log('dara3');
             },
-            viewAllTasks(){
-                if(this.todayDate == null){
+            viewAllTasks() {
+                if (this.todayDate == null) {
                     this.todayDate = fecha.format(new Date(), 'dddd MMMM Do, YYYY');
                     this.viewBtnText = "View All Tasks";
                     this.getTasks();
-                }
-                else{
-                 this.todayDate = null;
-                 this.viewBtnText = "View Today's Tasks";
-                 this.getTasks();
+                } else {
+                    this.todayDate = null;
+                    this.viewBtnText = "View Today's Tasks";
+                    this.getTasks();
                 }
             },
             deleteTask(id) {
@@ -303,9 +292,9 @@
             // Fetch initial results
             this.getTasks();
         },
-         watch: {
-            todayDate: function(dateGet) {
-                if(dateGet) {
+        watch: {
+            todayDate: function (dateGet) {
+                if (dateGet) {
                     this.todayDate = dateGet;
                     this.viewBtnText = "View All Tasks";
                     this.getTasks();
@@ -404,66 +393,75 @@
         width: 100%;
     }
 
-    .vdpComponent{
-        width:100%
+    .vdpComponent {
+        width: 100%
     }
+
     .vdpComponent input,
     .maz-input__input {
-        display: block!important;
-        width: 100%!important;
-        height: calc(1.5em + 1.25rem + 2px)!important;
-        padding: 0.625rem 0.75rem!important;
-        font-size: 0.875rem!important;
-        font-weight: 400!important;
-        line-height: 1.5!important;
-        color: #8898aa!important;
-        background-color: #fff!important;
-        background-clip: padding-box!important;
-        border: 1px solid #cad1d7!important;
-        border-radius: 0.375rem!important;
-        -webkit-box-shadow: none!important;
-        box-shadow: none!important;
-        -webkit-transition: all 0.2s cubic-bezier(0.68, -0.55, 0.265, 1.55)!important;
-        transition: all 0.2s cubic-bezier(0.68, -0.55, 0.265, 1.55)!important;
-        font-size: 0.875rem!important;
-        -webkit-box-shadow: 0 1px 3px rgba(50, 50, 93, 0.15), 0 1px 0 rgba(0, 0, 0, 0.02)!important;
-        box-shadow: 0 1px 3px rgba(50, 50, 93, 0.15), 0 1px 0 rgba(0, 0, 0, 0.02)!important;
-        border: 0!important;
-        -webkit-transition: -webkit-box-shadow .15s ease!important;
-        transition: -webkit-box-shadow .15s ease!important;
-        transition: box-shadow .15s ease!important;
-        transition: box-shadow .15s ease, -webkit-box-shadow .15s ease!important;
+        display: block !important;
+        width: 100% !important;
+        height: calc(1.5em + 1.25rem + 2px) !important;
+        padding: 0.625rem 0.75rem !important;
+        font-size: 0.875rem !important;
+        font-weight: 400 !important;
+        line-height: 1.5 !important;
+        color: #8898aa !important;
+        background-color: #fff !important;
+        background-clip: padding-box !important;
+        border: 1px solid #cad1d7 !important;
+        border-radius: 0.375rem !important;
+        -webkit-box-shadow: none !important;
+        box-shadow: none !important;
+        -webkit-transition: all 0.2s cubic-bezier(0.68, -0.55, 0.265, 1.55) !important;
+        transition: all 0.2s cubic-bezier(0.68, -0.55, 0.265, 1.55) !important;
+        font-size: 0.875rem !important;
+        -webkit-box-shadow: 0 1px 3px rgba(50, 50, 93, 0.15), 0 1px 0 rgba(0, 0, 0, 0.02) !important;
+        box-shadow: 0 1px 3px rgba(50, 50, 93, 0.15), 0 1px 0 rgba(0, 0, 0, 0.02) !important;
+        border: 0 !important;
+        -webkit-transition: -webkit-box-shadow .15s ease !important;
+        transition: -webkit-box-shadow .15s ease !important;
+        transition: box-shadow .15s ease !important;
+        transition: box-shadow .15s ease, -webkit-box-shadow .15s ease !important;
     }
-    .maz-input__label{
-        display:none;
+
+    .maz-input__label {
+        display: none;
     }
-    .maz-select__toggle{
+
+    .maz-select__toggle {
         position: absolute;
         bottom: 10px;
         right: 0px;
         display: flex;
     }
-    .v-text-field__details{
-        display:none
+
+    .v-text-field__details {
+        display: none
     }
+
     .task-group-row,
-    .tasks-list-row{
-        border: 0!important;
-        -webkit-transition: -webkit-box-shadow .15s ease!important;
-        transition: -webkit-box-shadow .15s ease!important;
-        transition: box-shadow .15s ease!important;
-        transition: box-shadow .15s ease, -webkit-box-shadow .15s ease!important;
+    .tasks-list-row {
+        border: 0 !important;
+        -webkit-transition: -webkit-box-shadow .15s ease !important;
+        transition: -webkit-box-shadow .15s ease !important;
+        transition: box-shadow .15s ease !important;
+        transition: box-shadow .15s ease, -webkit-box-shadow .15s ease !important;
     }
-    .task-group-row{
-        box-shadow: 0 1px 3px rgba(45, 206, 136, 0.767), 0 1px 0 rgba(0, 0, 0, 0.02)!important;
+
+    .task-group-row {
+        box-shadow: 0 1px 3px rgba(45, 206, 136, 0.767), 0 1px 0 rgba(0, 0, 0, 0.02) !important;
     }
-    .tasks-list-row{
-        box-shadow: 0 1px 3px rgba(251, 98, 64, 0.829), 0 1px 0 rgba(0, 0, 0, 0.02)!important;
+
+    .tasks-list-row {
+        box-shadow: 0 1px 3px rgba(251, 98, 64, 0.829), 0 1px 0 rgba(0, 0, 0, 0.02) !important;
     }
-    .v-text-field.v-text-field--solo:not(.v-text-field--solo-flat)>.v-input__control>.v-input__slot{
-        box-shadow: 0 1px 3px rgba(50, 50, 93, 0.15), 0 1px 0 rgba(0, 0, 0, 0.02)!important;
+
+    .v-text-field.v-text-field--solo:not(.v-text-field--solo-flat)>.v-input__control>.v-input__slot {
+        box-shadow: 0 1px 3px rgba(50, 50, 93, 0.15), 0 1px 0 rgba(0, 0, 0, 0.02) !important;
     }
-    .plus-btn{
+
+    .plus-btn {
         width: 50px;
         height: 50px;
         line-height: 20px;
@@ -473,15 +471,18 @@
         justify-content: center;
         align-items: center;
     }
-    .z-index-9999{
+
+    .z-index-9999 {
         z-index: 9999;
     }
+
     .vs-switch,
-    .vs-switch:hover{
+    .vs-switch:hover {
         background: #f5365c;
-        color:#fff;
+        color: #fff;
     }
-    .vs-switch__text.off{
-        color:#fff;
+
+    .vs-switch__text.off {
+        color: #fff;
     }
-</style> 
+</style>

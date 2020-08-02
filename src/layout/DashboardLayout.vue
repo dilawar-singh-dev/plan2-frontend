@@ -10,6 +10,7 @@
         <!-- VENDORS  -->
         <sidebar-item :link="{name: 'Categories', icon: 'ni ni-align-center text-blue', path: '/categories'}"/>
         <sidebar-item :link="{name: 'Tasks', icon: 'ni ni-align-center text-blue', path: '/tasks'}"/>
+        <sidebar-item :link="{name: 'Friends', icon: 'ni ni-align-center text-blue', path: '/friends'}"/>
 
       </template>
     </side-bar>

@@ -46,8 +46,19 @@ export default new Router({
           name: 'create-category',
           component: () => import(/* webpackChunkName: "demo" */ './views/Categories/create-category.vue'),
           beforeEnter: ifAuthenticated
+        },
+        {
+          path: '/friends',
+          name: 'friends',
+          component: () => import(/* webpackChunkName: "demo" */ './views/Friends/friends-list.vue'),
+          beforeEnter: ifAuthenticated
+        },
+        {
+          path: '/friend/add',
+          name: 'add-friend',
+          component: () => import(/* webpackChunkName: "demo" */ './views/Friends/add-friend.vue'),
+          beforeEnter: ifAuthenticated
         }
-        
       ]
     },
     {
