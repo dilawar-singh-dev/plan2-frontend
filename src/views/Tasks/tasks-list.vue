@@ -75,7 +75,7 @@
                                 </td>
 
                                 <td class="budget">
-                                    <toggle-button @change="statusChange(row.id,row.done)" :value="row.done" :labels="{
+                                    <!-- <toggle-button @change="statusChange(row.id,row.done)" :value="row.done" :labels="{
                                          checked: 'Done',
                                          unchecked: 'Pending'
                                         }" :width="70" :switch-color="{
@@ -84,7 +84,16 @@
                                         }" :color="{
                                          checked: '#1aae6f',
                                          unchecked: '#ff3709'
-                                        }" />
+                                        }" /> -->
+
+                                        <vs-switch  color="rgb(59,222,200)" @change="statusChange(row.id,row.done)" :value="row.done">
+                                            <template color="rgb(59,222,200)" #off>
+                                                Pending
+                                            </template>
+                                            <template color="rgba(254, 201, 189, 0.8)" #on>
+                                                Done
+                                            </template>
+                                        </vs-switch>
                                 </td>
 
                                 <td class="text-left" @click="deleteTask(row.id)">
@@ -467,4 +476,12 @@
     .z-index-9999{
         z-index: 9999;
     }
-</style>
+    .vs-switch,
+    .vs-switch:hover{
+        background: #f5365c;
+        color:#fff;
+    }
+    .vs-switch__text.off{
+        color:#fff;
+    }
+</style> 
