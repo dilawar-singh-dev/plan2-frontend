@@ -1,43 +1,43 @@
 self.__precacheManifest = [
   {
-    "revision": "db14299ddd447847c510",
+    "revision": "8967bed39891d47d34ae",
     "url": "/css/app.309c1b34.css"
   },
   {
-    "revision": "db14299ddd447847c510",
-    "url": "/js/app.16659126.js"
+    "revision": "8967bed39891d47d34ae",
+    "url": "/js/app.ddc2a5dc.js"
   },
   {
-    "revision": "e38248fecc5696c0c56e",
+    "revision": "061dea37314fff1ebc11",
     "url": "/css/chunk-vendors.82ca9548.css"
   },
   {
-    "revision": "e38248fecc5696c0c56e",
-    "url": "/js/chunk-vendors.05f0f9f4.js"
+    "revision": "061dea37314fff1ebc11",
+    "url": "/js/chunk-vendors.0744592b.js"
   },
   {
-    "revision": "9c331538f816ef223245",
+    "revision": "c63f8b907d6f44701be3",
     "url": "/css/demo.1d3ba191.css"
   },
   {
-    "revision": "9c331538f816ef223245",
-    "url": "/js/demo.38452345.js"
-  },
-  {
-    "revision": "426439788ec5ba772cdf94057f6f4659",
-    "url": "/fonts/nucleo-icons.42643978.woff2"
+    "revision": "c63f8b907d6f44701be3",
+    "url": "/js/demo.e3025b80.js"
   },
   {
     "revision": "c1733565b32b585676302d4233c39da8",
     "url": "/fonts/nucleo-icons.c1733565.eot"
   },
   {
-    "revision": "2569aaea6eaaf8cd210db7f2fa016743",
-    "url": "/fonts/nucleo-icons.2569aaea.woff"
+    "revision": "426439788ec5ba772cdf94057f6f4659",
+    "url": "/fonts/nucleo-icons.42643978.woff2"
   },
   {
     "revision": "f82ec6ba2dc4181db2af35c499462840",
     "url": "/fonts/nucleo-icons.f82ec6ba.ttf"
+  },
+  {
+    "revision": "2569aaea6eaaf8cd210db7f2fa016743",
+    "url": "/fonts/nucleo-icons.2569aaea.woff"
   },
   {
     "revision": "0b8a30b10cbe7708d5f3a4b007c1d665",
@@ -60,7 +60,7 @@ self.__precacheManifest = [
     "url": "/fonts/materialdesignicons-webfont.8ed8f071.ttf"
   },
   {
-    "revision": "82f37254f8b1dcab16ae1ad98bd88d0f",
+    "revision": "1b5499e6eb0832391a4b4a86badf86d1",
     "url": "/index.html"
   },
   {
@@ -112,11 +112,11 @@ self.__precacheManifest = [
     "url": "/img/theme/profile-cover.jpg"
   },
   {
-    "revision": "c532f6f0176968caa6265864ee1abb35",
-    "url": "/img/theme/vue.jpg"
-  },
-  {
     "revision": "66618a418175ddf2ac8c47a241d327a8",
     "url": "/img/theme/team-4-800x800.jpg"
+  },
+  {
+    "revision": "c532f6f0176968caa6265864ee1abb35",
+    "url": "/img/theme/vue.jpg"
   }
 ];
