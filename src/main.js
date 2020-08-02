@@ -27,6 +27,8 @@ import VueSelectInputUi from 'vue-select-input-ui';
 import 'vue-select-input-ui/dist/vue-select-input-ui.css';
 import ToggleButton from 'vue-js-toggle-button'
 import vuetify from '@/plugins/vuetify' // path to vuetify export
+import Vuesax from 'vuesax'
+import 'vuesax/dist/vuesax.css'
 
 // AXOIS 
 window.axios = require('axios');
@@ -42,6 +44,7 @@ Vue.use(ArgonDashboard)
 Vue.use(VueConfirmDialog)
 Vue.use(Paginate)
 Vue.use(ToggleButton)
+Vue.use(Vuesax, {})
 
 // MODAL POPUP MSG 
 Vue.component('vue-confirm-dialog', VueConfirmDialog.default)
