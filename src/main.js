@@ -39,7 +39,7 @@ Vue.config.productionTip = false
 Vue.use(NProgress)
 Vue.use(ArgonDashboard)
 Vue.use(VueConfirmDialog)
-Vue.use(Paginate)
+Vue.use(Paginate) 
 
 // MODAL POPUP MSG 
 Vue.component('vue-confirm-dialog', VueConfirmDialog.default)
